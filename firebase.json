@@ -1,7 +1,6 @@
 {
   "hosting": {
     "public": "dist",
-    "site": "my-app-cicd-e3128", 
     "ignore": [
       "firebase.json",
       "**/.*",
