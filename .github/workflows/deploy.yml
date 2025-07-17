@@ -2,14 +2,15 @@ name: Deploy to Firebase Hosting
 
 on:
   push:
-    branches: [ main ]  # main 브랜치에 push될 때마다 배포
+    branches:
+      - main
 
 jobs:
-  build-deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📦 Checkout Repository
+      - name: 📦 Checkout code
         uses: actions/checkout@v3
 
       - name: 🟢 Setup Node.js
@@ -20,12 +21,13 @@ jobs:
       - name: 📥 Install dependencies
         run: npm ci
 
-      - name: 🏗️ Build
+      - name: 🏗️ Build project
         run: npm run build
 
       - name: 🚀 Deploy to Firebase Hosting
-        uses: w9jds/firebase-action@v14.10.1
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          channelId: live
+          projectId: my-app-cicd-e3128
