@@ -4,6 +4,7 @@ node_modules/
 # 빌드 결과물
 dist/
 build/
+.firebase/
 
 # 환경 변수
 .env
